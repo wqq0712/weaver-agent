@@ -1,8 +1,5 @@
 package com.more.fw.weaver.agent.util;
 
-import java.util.UUID;
-
-
 /**
  * @author qq.wang
  *
@@ -34,12 +31,6 @@ public class StringUtil {
         return !isEmpty(cs);
     }
 	
-
-	
-	public static void main(String[] args) {
-		System.out.println(UUID.randomUUID().toString());
-	}
-	
 	public static boolean containsIgnoreCase(final CharSequence str, final CharSequence searchStr) {
         if (str == null || searchStr == null) {
             return false;
@@ -53,6 +44,7 @@ public class StringUtil {
         }
         return false;
     }
+	
 	
 	private static boolean regionMatches(final CharSequence cs, final boolean ignoreCase, final int thisStart,
             final CharSequence substring, final int start, final int length)    {
@@ -121,4 +113,55 @@ public class StringUtil {
         }
         return true;
     }
+	
+	public static boolean equalsIgnoreCase(final CharSequence cs1, final CharSequence cs2) {
+        if (cs1 == cs2) {
+            return true;
+        }
+        if (cs1 == null || cs2 == null) {
+            return false;
+        }
+        if (cs1.length() != cs2.length()) {
+            return false;
+        }
+        return regionMatches(cs1, true, 0, cs2, 0, cs1.length());
+    }
+	
+	public static boolean startsWith(final CharSequence str, final CharSequence prefix) {
+        return startsWith(str, prefix, false);
+    }
+	
+	public static boolean startsWithIgnoreCase(final CharSequence str, final CharSequence prefix) {
+        return startsWith(str, prefix, true);
+    }
+	
+	private static boolean startsWith(final CharSequence str, final CharSequence prefix, final boolean ignoreCase) {
+        if (str == null || prefix == null) {
+            return str == prefix;
+        }
+        if (prefix.length() > str.length()) {
+            return false;
+        }
+        return regionMatches(str, ignoreCase, 0, prefix, 0, prefix.length());
+    }
+	
+	public static boolean endsWith(final CharSequence str, final CharSequence suffix) {
+        return endsWith(str, suffix, false);
+    }
+	
+	public static boolean endsWithIgnoreCase(final CharSequence str, final CharSequence suffix) {
+        return endsWith(str, suffix, true);
+    }
+	
+	private static boolean endsWith(final CharSequence str, final CharSequence suffix, final boolean ignoreCase) {
+        if (str == null || suffix == null) {
+            return str == suffix;
+        }
+        if (suffix.length() > str.length()) {
+            return false;
+        }
+        final int strOffset = str.length() - suffix.length();
+        return regionMatches(str, ignoreCase, strOffset, suffix, 0, suffix.length());
+    }
+
 }
